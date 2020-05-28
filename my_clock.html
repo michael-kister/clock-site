@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var snd1 = new Audio("temple_bell.wav");
+function startTime() {
+
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    var x = checkTime2(h, m, s);
+
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+  function checkTime2(h, m, s) {
+    if (s < 10) {s = "0" + s};  // add zero in front of numbers < 10
+
+    var c = document.getElementById("myCanvas");
+
+    if (m == 0 && s == 0) {
+	snd1.play();
+    }
+
+    var ctx = c.getContext("2d");
+    var tik = c.getContext("2d");
+    var hha = c.getContext("2d");
+    var mha = c.getContext("2d");
+    var sha = c.getContext("2d");
+    var sha2 = c.getContext("2d");
+
+    ctx.beginPath();
+    ctx.arc(250, 250, 210, 0, 2 * Math.PI);
+    ctx.fillStyle = "black";
+    ctx.fill();
+    
+    hha.beginPath();
+    hha.lineWidth = "12";
+    hha.lineCap = "round";
+    hha.strokeStyle = "white"; // Green path
+    hha.moveTo(250, 250);
+    hha.lineTo(250 + 140 * Math.cos((h / 12) * 2 * Math.PI - (Math.PI / 2)),
+	       250 + 140 * Math.sin((h / 12) * 2 * Math.PI - (Math.PI / 2)));
+    hha.stroke(); // Draw it
+
+    mha.beginPath();
+    mha.lineWidth = "8";
+    mha.lineCap = "round";
+    mha.strokeStyle = "#white"; // Green path
+    mha.moveTo(250, 250);
+    mha.lineTo(250 + 178 * Math.cos((m / 60) * 2 * Math.PI - (Math.PI / 2)),
+	       250 + 178 * Math.sin((m / 60) * 2 * Math.PI - (Math.PI / 2)));
+    mha.stroke(); // Draw it
+
+    sha.beginPath();
+    sha.lineWidth = "5";
+    sha.lineCap = "round";
+    sha.strokeStyle = "#fbb000"; // Green path
+    sha.moveTo(250, 250);
+    sha.lineTo(250 + 188 * Math.cos((s / 60) * 2 * Math.PI - (Math.PI / 2)),
+	       250 + 188 * Math.sin((s / 60) * 2 * Math.PI - (Math.PI / 2)));
+    sha.stroke(); // Draw it
+
+    sha2.beginPath();
+    sha2.lineWidth = "10";
+    sha2.lineCap = "round";
+    sha2.strokeStyle = "#fbb000"; // Green path
+    sha2.moveTo(250, 250);
+    sha2.lineTo(250 + 20 * Math.cos((s / 60) * 2 * Math.PI - (3 * Math.PI / 2)),
+	        250 + 20 * Math.sin((s / 60) * 2 * Math.PI - (3 * Math.PI / 2)));
+    sha2.stroke(); // Draw it
+
+    sha.beginPath();
+    sha.arc(250, 250, 10, 0, 2 * Math.PI);
+    sha.fillStyle = "#fbb000";
+    sha.fill();
+
+    var i;
+    for (i = 0; i < 60; i++) {
+	tik.beginPath();
+	tik.lineWidth = "2";
+	tik.strokeStyle = "#999999"; // Green path
+	tik.moveTo(250 + 205 * Math.cos((i / 60) * 2 * Math.PI),
+		   250 + 205 * Math.sin((i / 60) * 2 * Math.PI));
+	tik.lineTo(250 + 200 * Math.cos((i / 60) * 2 * Math.PI),
+		   250 + 200 * Math.sin((i / 60) * 2 * Math.PI));
+	tik.stroke(); // Draw it
+    }
+    for (i = 0; i < 12; i++) {
+	tik.beginPath();
+	tik.lineWidth = "4";
+	tik.strokeStyle = "#999999"; // Green path
+	tik.moveTo(250 + 205 * Math.cos((i / 12) * 2 * Math.PI),
+		   250 + 205 * Math.sin((i / 12) * 2 * Math.PI));
+	tik.lineTo(250 + 195 * Math.cos((i / 12) * 2 * Math.PI),
+		   250 + 195 * Math.sin((i / 12) * 2 * Math.PI));
+	tik.stroke(); // Draw it
+    }
+    
+
+
+    return 0;
+}
+</script>
+</head>
+
+
+<body onload="startTime()">
+
+  <div id="txt"></div>
+
+  <canvas id="myCanvas" width="500" height="500" style="border:0px solid #d3d3d3;">
+
+</body>
+</html>
