@@ -3,9 +3,6 @@
 <head>
 <script>
 var snd1 = new Audio("temple_bell.wav");
-var fmnd = new Date("May 7, 2020 06:45:00");
-var fmne = new Date("June 5, 2020 15:12:00");
-//
 var fullMoonDates = [
       '2020-01-10T14:21:00'
     , '2020-02-09T02:33:00'
@@ -21,12 +18,7 @@ var fullMoonDates = [
     , '2020-11-30T16:30:00'
     , '2020-12-29T22:28:00'
 ];
-  var text = "hello ";
-  
-
-
 function getProgress (inDate) {
-
   var nextFM = new Date();
   var lastFM = new Date();
   for (i = 0; i < 13; i++) {
@@ -39,8 +31,6 @@ function getProgress (inDate) {
   var prog = (inDate.getTime() - lastFM.getTime()) / (nextFM.getTime() - lastFM.getTime());
   return(prog);
 }
-    
-
 function startTime() {
 
     var today = new Date();
@@ -49,9 +39,6 @@ function startTime() {
     var s = today.getSeconds();
 
     var mn = getProgress(today);
-
-    text = mn + " percent";
-    document.getElementById("demo").innerHTML = text;
 
     var x = printClock(h, m, s, mn);
 
@@ -191,7 +178,6 @@ function makeHand(th, r, w, col) {
 
 <body onload="startTime()">
 
-  <p id="demo"></p>
   <div id="txt"></div>
 
   <canvas id="myCanvas" width="500" height="500" style="border:0px solid #d3d3d3;">
