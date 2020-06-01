@@ -74,7 +74,7 @@ function makeMoon(mn) {
 
 
     var rr = 90;
-    var moo = mn * (Math.PI) + (Math.PI / 2);
+    var moo = (Math.PI / 2) - mn * (Math.PI);
     var ttx = 250 + rr * Math.cos(moo);
     var tty = 250 - rr * Math.sin(moo);
     makeCircle2(ttx, tty,  54, "#0f4d92");
