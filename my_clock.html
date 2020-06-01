@@ -68,16 +68,16 @@ function makeMoon(mn) {
 
     var c = document.getElementById("myCanvas");
 
-    makeCircle2(250, 250,  130, "#0f4d92");
+    //makeCircle2(250, 250,  18, "#ffc849");
 
 
     var xx = c.getContext("2d");
     
-    xx.fillStyle = "#08284d";
+    xx.fillStyle = "#af7a00";
 
     var c1 = 0.551915024494;
     var c2 = 1.0 - c1;
-    var rad = 130;
+    var rad = 18;
     var cstr = "";
 
     var phaseLeft = 1.0;
@@ -107,7 +107,7 @@ function makeMoon(mn) {
     cstr += " " + -phaseLeft*rad*c2 + "," + -rad;
     cstr += " " + -phaseLeft*rad + "," + -rad;
         
-    pstr = 'm 250, 120 c ' + cstr + ' z';
+    pstr = 'm 250, 232 c ' + cstr + ' z';
     let pp = new Path2D(pstr);
 
     xx.fill(pp);
@@ -144,10 +144,6 @@ function makeHand(th, r, w, col) {
     makeCircle("210", "#000000");
 
 
-    // make moon
-    makeMoon(mn);
-    
-
     // make the different hands
     makeHand(thh, 140, "13", "#999999");
     makeHand(thh, 140, "12", "#ffffff");
@@ -157,7 +153,11 @@ function makeHand(th, r, w, col) {
     makeHand(thb,  30, "10", "#fbb000");
 
     // yellow circle in middle
-    makeCircle("13", "#fbb000");
+    makeCircle("20", "#fbb000");
+
+    // make moon
+    makeMoon(mn);
+    
 
     // small ticks, then large ticks
     var tik = c.getContext("2d");
