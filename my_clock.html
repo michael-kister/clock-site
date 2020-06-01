@@ -66,83 +66,51 @@ function makeCircle2(cx, cy, r, col) {
 }
 function makeMoon(mn) {
 
-    //makeCircle2(250, 250, 150, "blue");
-    //makeCircle2(250, 250,  30, "red");
-    //makeCircle2(160, 250,  60, "red");
-    makeCircle2(250, 250,  150, "#08284d");
-    //makeCircle2(160, 250,  60, "#0f4d92");
-
-
-    var rr = 90;
-    var moo = (Math.PI / 2) - mn * (Math.PI);
-    var ttx = 250 + rr * Math.cos(moo);
-    var tty = 250 - rr * Math.sin(moo);
-    makeCircle2(ttx, tty,  54, "#0f4d92");
-    
-    ttx = 250 + rr * Math.cos(moo + Math.PI);
-    tty = 250 - rr * Math.sin(moo + Math.PI);
-    makeCircle2(ttx, tty,  54, "#0f4d92");
-    
     var c = document.getElementById("myCanvas");
-    var x = c.getContext("2d");
-    var r = 50;
-    var col = "#000000";
-    x.fillStyle = col;
 
-    let p = new Path2D('m 220, 250 c 0,-16.6 13.4,-30 30,-30 16.6,0 30,13.4 30,30 h 5 c 0,-30.4 24.6,-55 55,-55 30.4,0 55,24.6 55,55 h 10 c 0,85.5 -69.5,155 -155,155 -85.5,0 -155,-69.5 -155,-155 h 10 c 0,-30.4 24.6,-55 55,-55 30.4,0 55,24.6 55,55 z');
-
-    x.fill(p);
-
+    makeCircle2(250, 250,  130, "#0f4d92");
 
 
     var xx = c.getContext("2d");
     
-    xx.fillStyle = "red";
+    xx.fillStyle = "#08284d";
 
     var c1 = 0.551915024494;
     var c2 = 1.0 - c1;
-    var rad = 30;
-    // start at top
+    var rad = 130;
     var cstr = "";
 
-    var ppp1 = -0.05;
-    
-    
-    cstr += rad * c1 + "," + 0.0;
-    cstr += " " + rad + "," + rad * c2;
-    cstr += " " + rad + "," + rad;
+    var phaseLeft = 1.0;
+    var phaseRight = 1.0;
 
-    cstr += " " + 0.0 + "," + rad * c1;
-    cstr += " " + -rad * c2 + "," + rad;
-    cstr += " " + -rad + "," + rad;
+    if (mn <= 0.5) {
+	phaseLeft = Math.cos(2 * mn * Math.PI);
+	phaseRight = 1.0;
+    } else {
+	phaseLeft = -1.0;
+	phaseRight = Math.sin(2 * mn * Math.PI);
+    }
     
-    cstr += " " + ppp1*rad*c1 + "," + 0.0;
-    cstr += " " + ppp1*rad + "," + -rad*(1-c1);
-    cstr += " " + ppp1*rad + "," + -rad;
+    cstr += phaseRight*rad*c1 + "," + 0.0;
+    cstr += " " + phaseRight*rad + "," + rad*c2;
+    cstr += " " + phaseRight*rad + "," + rad;
+
+    cstr += " " + 0.0 + "," + rad*c1;
+    cstr += " " + -phaseRight*rad * c2 + "," + rad;
+    cstr += " " + -phaseRight*rad + "," + rad;
+    
+    cstr += " " + phaseLeft*rad*c1 + "," + 0.0;
+    cstr += " " + phaseLeft*rad + "," + -rad*c2;
+    cstr += " " + phaseLeft*rad + "," + -rad;
     
     cstr += " " + 0.0 + "," + -rad*c1;
-    cstr += " " + -ppp1*rad*(c1) + "," + -rad;
-    cstr += " " + -ppp1*rad + "," + -rad;
-    
-//    cstr += " " + 0.8*rad*c1 + "," + 0.0;
-//    cstr += " " + 0.8*rad + "," + -rad*c2;
-//    cstr += " " + -0.8*rad + "," -rad;
-    
-    //cstr += " " + c1 * 0.8 * rad + "," + 0.0;
-    //cstr += " " + 0.8 * rad + "," -rad * c2;
-    //cstr += " " + 0.8 * rad + "," -rad;
-    
-    
-    pstr = 'm 250, 150 c ' + cstr + ' z';
+    cstr += " " + -phaseLeft*rad*c2 + "," + -rad;
+    cstr += " " + -phaseLeft*rad + "," + -rad;
+        
+    pstr = 'm 250, 120 c ' + cstr + ' z';
     let pp = new Path2D(pstr);
 
-
     xx.fill(pp);
-
-    
-//    x.beginPath();
-//    x.arc(250, 150, r, 0, 2 * Math.PI);
-//    x.fill();
 }
 function makeHand(th, r, w, col) {
     
