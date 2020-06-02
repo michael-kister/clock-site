@@ -108,7 +108,7 @@ function makeMoon(mn) {
     cstr += " " + -phaseLeft*rad + "," + -rad;
         
     pstr = 'm 250, 232 c ' + cstr + ' z';
-    let pp = new Path2D(pstr);
+    pp = new Path2D(pstr);
 
     xx.fill(pp);
 }
