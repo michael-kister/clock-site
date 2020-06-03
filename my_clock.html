@@ -18,6 +18,7 @@ var fullMoonDates = [
     , '2020-11-30T16:30:00'
     , '2020-12-29T22:28:00'
 ];
+var moonPct = 1.0;
 function getProgress (inDate) {
   var nextFM = new Date();
   var lastFM = new Date();
@@ -38,9 +39,9 @@ function startTime() {
     var m = today.getMinutes();
     var s = today.getSeconds();
 
-    var mn = getProgress(today);
+    moonPct = getProgress(today);
 
-    var x = printClock(h, m, s, mn);
+    var x = printClock(h, m, s);
 
     var t = setTimeout(startTime, 500);
 }
@@ -64,7 +65,7 @@ function makeCircle2(cx, cy, r, col) {
     x.fillStyle = col;
     x.fill();
 }
-function makeMoon(mn) {
+function makeMoon() {
 
     var c = document.getElementById("myCanvas");
 
@@ -83,12 +84,12 @@ function makeMoon(mn) {
     var phaseLeft = 1.0;
     var phaseRight = 1.0;
 
-    if (mn <= 0.5) {
-	phaseLeft = Math.cos(2 * mn * Math.PI);
+    if (moonPct <= 0.5) {
+	phaseLeft = Math.cos(2 * moonPct * Math.PI);
 	phaseRight = 1.0;
     } else {
 	phaseLeft = -1.0;
-	phaseRight = Math.sin(2 * mn * Math.PI);
+	phaseRight = -Math.cos(2 * moonPct * Math.PI);
     }
     
     cstr += phaseRight*rad*c1 + "," + 0.0;
@@ -125,7 +126,7 @@ function makeHand(th, r, w, col) {
     x.lineTo(250 + r * Math.cos(th), 250 + r * Math.sin(th));
     x.stroke();     
 }
-  function printClock(h, m, s, mn) {
+  function printClock(h, m, s) {
     if (s < 10) {s = "0" + s};  // add zero in front of numbers < 10
 
     var c = document.getElementById("myCanvas");
@@ -156,7 +157,7 @@ function makeHand(th, r, w, col) {
     makeCircle("20", "#fbb000");
 
     // make moon
-    makeMoon(mn);
+    makeMoon();
     
 
     // small ticks, then large ticks
@@ -188,19 +189,80 @@ function makeHand(th, r, w, col) {
     return 0;
 }
 </script>
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
 </head>
 
 
 <body onload="startTime()">
 
-  <div id="txt"></div>
-
-  <canvas id="myCanvas" width="500" height="500" style="border:0px solid #d3d3d3;">
-
     <label class="switch">
       <input type="checkbox">
       <span class="slider round"></span>
     </label>
-    
+
+  <div id="txt"></div>
+
+  <canvas id="myCanvas" width="500" height="500" style="border:0px solid #d3d3d3;">
+
 </body>
 </html>
